@@ -1,0 +1,44 @@
+---
+title: "Assignment2"
+author: "Weiqun Tong"
+date: "April 5, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This is the week 2 assignment project of the Coursera cours-Developing Data Products. I use my own data to draw the map. I am happy to live in different places of the United States. Besides, in the moving process, I passed more than 20 states. This is cool!
+
+## Data plotted
+I have lived in 5 citys of 5 states after I arrived in the United States in 2003. The living experience in those cities reminds me great moments of my past years.
+
+```{r pressure, echo=TRUE}
+library("leaflet")
+
+cities<-data.frame(name=c("Lincoln NE", "Tucson AZ", "San Antonio TX", "Madison WI", "Baltimore MD"),
+                   tract = c("First Arrival ", "Degree achieved", "First job", "Second job", "Current job"),
+                   col = c("blue", "red", "green", "yellow", "purple"),
+                   lat = c(40.8136, 32.2226, 29.4241,43.0731, 39.2904),
+                   lng = c(-96.7026, -110.9747, -98.4936, -89.4012, -76.6122))
+
+CitySites <- c(
+  "<a href='https://www.lincoln.ne.gov/'>Lincoln</a>",
+  "<a href='https://www.tucsonaz.gov/'>Tucson</a>",
+  "<a href='https://www.sanantonio.gov/'>San Antonio</a>",
+  "<a href='http://www.cityofmadison.com/'>Madison</a>",
+  "<a href='https://baltimore.org/'>Baltimore</a>"
+)
+cities %>% 
+  leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addCircleMarkers(~lng, ~lat, color= cities$col, popup=CitySites, label= ~name) %>%
+  addLegend(labels=cities$tract, colors=c("blue", "red", "green", "yellow", "purple"))
+
+
+```
+
+
